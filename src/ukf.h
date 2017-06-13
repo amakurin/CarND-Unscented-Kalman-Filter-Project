@@ -55,6 +55,12 @@ public:
   ///* Radar measurement noise standard deviation radius change in m/s
   double std_radrd_ ;
 
+  float epsilon_;
+
+  MatrixXd R_laser_ ;
+  MatrixXd R_radar_ ;
+  MatrixXd H_laser_ ;
+
   ///* Weights of sigma points
   VectorXd weights_;
 
@@ -63,6 +69,9 @@ public:
 
   ///* Augmented state dimension
   int n_aug_;
+
+  ///* Sigma points count
+  int n_p_;
 
   ///* Sigma point spreading parameter
   double lambda_;
@@ -102,6 +111,10 @@ public:
    * @param meas_package The measurement at k+1
    */
   void UpdateRadar(MeasurementPackage meas_package);
+
+private:
+  MatrixXd generateSigmaPoints();  
+  MatrixXd predictSigmaPoints(double dt);
 };
 
 #endif /* UKF_H */
